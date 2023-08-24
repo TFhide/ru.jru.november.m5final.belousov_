@@ -31,7 +31,8 @@ spring:
     password: JiraRush
 
   liquibase:
-    changeLog: "classpath:db/changelog.sql"
+    enabled: true
+  #    changeLog: "classpath:db/changelog.sql"
 
   # Jackson Fields Serialization
   jackson:
