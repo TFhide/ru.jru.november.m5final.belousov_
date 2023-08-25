@@ -18,9 +18,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskUtil.fillExtraFields;
@@ -39,6 +41,7 @@ public class TaskService {
     private final SprintRepository sprintRepository;
     private final TaskExtMapper extMapper;
     private final UserBelongRepository userBelongRepository;
+    private final TaskRepository taskRepository;
 
     @Transactional
     public void changeStatus(long taskId, String statusCode) {
@@ -139,5 +142,20 @@ public class TaskService {
         if (!userType.equals(possibleUserType)) {
             throw new DataConflictException(String.format(assign ? CANNOT_ASSIGN : CANNOT_UN_ASSIGN, userType, task.getStatusCode()));
         }
+    }
+
+    @Transactional
+    public Task addTag(long id, String... tagNames) {
+        Task task = handler.getRepository().findById(id).orElse(new Task());
+        task.setTags(Set.of(tagNames));
+        return handler.getRepository().save(task);
+    }
+
+    @Transactional
+    public List<Task> addTagByTaskTitle(String taskTitle, String... tagNames) {
+        List<Task> tasks = taskRepository.findByTitleContainsIgnoreCase(taskTitle);
+        tasks.forEach(task -> task.setTags(Set.of(tagNames)));
+        tasks.forEach(task -> handler.getRepository().save(task));
+        return tasks;
     }
 }

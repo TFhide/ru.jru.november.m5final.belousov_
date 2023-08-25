@@ -10,6 +10,9 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface TaskRepository extends BaseRepository<Task> {
+    @Query("select t from Task t where upper(t.title) like upper(concat('%', ?1, '%'))")
+    List<Task> findByTitleContainsIgnoreCase(String title);
+
     @Query("SELECT t FROM Task t WHERE t.sprintId =:sprintId ORDER BY t.startpoint DESC")
     List<Task> findAllBySprintId(long sprintId);
 

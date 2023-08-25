@@ -325,3 +325,31 @@ values (6, 1, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress
        (5, 118, '2023-05-16 11:10:10', null, 'UI tab of tasks', null, null, null, null, 'high'),
        (11, 118, '2023-05-16 12:30:10', null, 'UI tab of tasks', null, 2, null, null, null);
 
+
+-- 0 REST_API
+-- 1 TESTS
+-- 2 MEETING
+-- 3 SPRINT
+-- 4 PROJECT
+
+DELETE
+FROM TASK_TAG;
+insert into TASK_TAG (TASK_ID, TAG)
+values (4, '#sprint'),
+       (102, '#test'),
+       (106, '#test'),
+       (110, '#test'),
+       (93, '#rest_api'),
+       (101, '#rest_api'),
+       (105, '#rest_api'),
+       (109, '#rest_api'),
+       (116, '#rest_api'),
+       (121, '#meeting'),
+       (9, '#sprint'),
+       (87, '#sprint'),
+       (96, '#sprint'),
+       (97, '#sprint'),
+       (124, '#sprint'),
+       (5, '#project');
+
+
