@@ -18,7 +18,8 @@ public class ProjectTestData {
     }
 
     public static ProjectTo getUpdated() {
-        return new ProjectTo(PROJECT_ID, "PR2", "PROJECT-2 UPD", "test project 2", "task_tracker", PARENT_PROJECT_ID);
+        return new ProjectTo(PROJECT_ID, "PR2", "PROJECT-2 UPD", "test project 2", "task_tracker",
+                PARENT_PROJECT_ID);
     }
 
     public static ProjectTo getDisabled() {
