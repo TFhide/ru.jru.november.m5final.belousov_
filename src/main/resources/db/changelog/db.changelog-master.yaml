@@ -2,4 +2,6 @@ databaseChangeLog:
   - includeAll:
       path: db/changelog/schema/
   - includeAll:
-      path: db/changelog/data/
+      path: db/changelog/data/v1.0/
+  - includeAll:
+      path: db/changelog/data/v1.1/

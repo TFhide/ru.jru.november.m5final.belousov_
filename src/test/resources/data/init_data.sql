@@ -1,4 +1,5 @@
 ---------  users ----------------------
+--changeset admin:init_test_data
 delete
 from USER_ROLE;
 delete
@@ -96,3 +97,4 @@ values (1, 2, 2, 'task_developer', '2023-06-14 08:35:10', '2023-06-14 08:55:00')
        (2, 2, 2, 'task_developer', '2023-06-08 07:10:00', NULL),
        (2, 2, 1, 'task_developer', '2023-06-09 14:48:00', NULL),
        (2, 2, 1, 'task_tester', '2023-06-10 16:37:00', NULL);
+

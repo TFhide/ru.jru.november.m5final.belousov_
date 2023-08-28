@@ -7,6 +7,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Sql(scripts = {"classpath:schema/changelogTest.sql", "classpath:data/data.sql"}, config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = {"classpath:schema/changelogTest.sql", "classpath:data/init_data.sql"},
+        config = @SqlConfig(encoding = "UTF-8"))
 abstract class BaseTests {
 }

@@ -19,7 +19,7 @@ spring:
 
 
 
-#      data-locations: data.sql
+#      data-locations: init_data.sql
 
 #  profiles:
 #    active: test
