@@ -1,11 +1,5 @@
 version: '3.8'
 
-#x-common-variables:
-#  &db-env-vars
-#     POSTGRES_DB: books_db
-#     POSTGRES_USER: root
-#     POSTGRES_PASSWORD: qwerty
-
 services:
   jira:
     container_name: app-jira
@@ -16,14 +10,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_jira:5432/books_db
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=qwerty
-    #      - POSTGRES_USER= root
-    #      - POSTGRES_PASSWORD= qwerty
-    #      - POSTGRES_DB= books_db
-    #      - POSTGRES_HOST= jdbc:postgresql://localhost
-    #      - POSTGRES_PORT= 15432
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_jira:5432/jira
+      - SPRING_DATASOURCE_USERNAME=jira
+      - SPRING_DATASOURCE_PASSWORD=JiraRush
     depends_on:
       postgres_jira:
         condition: service_healthy
@@ -34,15 +23,15 @@ services:
     container_name: db-postgres
     image: postgres:latest
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_USER=jira
+      - POSTGRES_PASSWORD=JiraRush
     ports:
       - "15432:5432"
     volumes:
       - ./infrastructure/db/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U root" ]
+      test: [ "CMD-SHELL", "pg_isready -U jira" ]
       interval: 10s
       timeout: 5s
       retries: 5

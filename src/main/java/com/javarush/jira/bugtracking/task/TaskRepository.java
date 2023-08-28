@@ -5,11 +5,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface TaskRepository extends BaseRepository<Task> {
+
     @Query("select t from Task t where upper(t.title) like upper(concat('%', ?1, '%'))")
     List<Task> findByTitleContainsIgnoreCase(String title);
 
@@ -40,4 +42,6 @@ public interface TaskRepository extends BaseRepository<Task> {
             WHERE id IN (SELECT child FROM task_with_subtasks)
             """, nativeQuery = true)
     void setTaskAndSubTasksSprint(long taskId, Long sprintId);
+
+
 }

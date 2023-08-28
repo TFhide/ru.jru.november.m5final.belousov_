@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.javarush.jira.bugtracking.task.TaskUtil.getLatestValue;
 
@@ -72,5 +75,45 @@ public class ActivityService {
                 task.setTypeCode(latestType);
             }
         }
+    }
+
+    public long getTimeCompleteTask(Task inputTask) {
+
+        Optional<Task> fullById = taskRepository.findById(inputTask.getId());
+        LocalDateTime inProgress = LocalDateTime.now();
+        LocalDateTime readyReview = LocalDateTime.now();
+
+        if(fullById.isPresent()) {
+            Task task = fullById.get();
+            if(task.getStatusCode().equals("in_progress")) {
+                inProgress = task.getStartpoint();
+            }
+            if (task.getStatusCode().equals("ready_for_review")) {
+                readyReview = task.getStartpoint();
+            }
+            return Duration.between(inProgress, readyReview).toMinutes();
+        }
+        return 0;
+    }
+
+    public long getTimeSpentByTaskOnTest(Task inputTask) {
+
+        Optional<Task> taskOptional = taskRepository.findById(inputTask.getId());
+        LocalDateTime readyReview = LocalDateTime.now();
+        LocalDateTime done = LocalDateTime.now();
+
+        if(taskOptional.isPresent()) {
+            Task task = taskOptional.get();
+            if(task.getStatusCode().equals("ready_for_review")) {
+                readyReview = task.getStartpoint();
+            }
+            if (task.getStatusCode().equals("done")) {
+                done = task.getStartpoint();
+            }
+            return Duration.between(done, readyReview).toMinutes();
+        }
+
+        return 0;
+
     }
 }
