@@ -12,21 +12,6 @@ spring:
       platform: h2
 
   liquibase:
-#    enabled: true
     changeLog: "classpath:schema/changelogTest.sql"
 
 
-
-
-
-#      data-locations: init_data.sql
-
-#  profiles:
-#    active: test
-
-#  init:
-#    mode: always
-#  datasource:
-#    url: jdbc:postgresql://localhost:5433/jira-test
-#    username: jira
-#    password: JiraRush
